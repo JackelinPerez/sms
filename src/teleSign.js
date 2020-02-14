@@ -12,8 +12,8 @@ const client = new TeleSignSDK( customerId,
     // userAgent
 );
 
-const phoneNumber = "51922863121";
-const message = "You're scheduled for a dentist appointment at 2:30PM.";
+const phoneNumber = "51992014668";
+const message = "Hello Katapulta :)";
 const messageType = "MKT";
 
 console.log("## MessagingClient.message ##");
