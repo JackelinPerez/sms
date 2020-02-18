@@ -1,28 +1,29 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+// Load the AWS SDK for Node.js
+var AWS = require('aws-sdk');
+// Set region
+AWS.config.update({
+    accessKeyId: 'AKIAQOXZO5CZF4DIV25P',
+    secretAccessKey:'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',
+    region: 'us-east-1'
 
-const app = express();
+});
 
-app.use(bodyParser.urlencoded({extended: false}));
 
-app.post('./message', (req, res)=>{
-    console.log(req.body);
-    const msgFrom = req.body.From;
-    const msgBody = req.body.Body;
+// Create publish parameters
+var params = {
+  Message: 'MESSAGE_TEXT', /* required */
+  TopicArn: 'TOPIC_ARN'
+};
 
-    res.send(`
-        <Response>
-            <Message>
-                Hello ${msgFrom}, You said: ${msgBody}
-            </Message>
-        </Response>
-    `)
-})
+// Create promise and SNS service object
+var publishTextPromise = new AWS.SNS({apiVersion: '2010-03-31'}).publish(params).promise();
 
-app.get('/', (req, res)=>{
-    res.send('hello katapulta');
-})
-
-app.listen(3000,()=>{
-    console.log('Server on port 3000');
-})
+// Handle promise's fulfilled/rejected states
+publishTextPromise.then(
+  function(data) {
+    console.log(`Message ${params.Message} send sent to the topic ${params.TopicArn}`);
+    console.log("MessageID is " + data.MessageId);
+  }).catch(
+    function(err) {
+    console.error(err, err.stack);
+  });
