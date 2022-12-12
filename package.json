@@ -6,7 +6,7 @@
   "dependencies": {
     "aws-sdk": "^2.620.0",
     "body-parse": "^0.1.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-device": "^0.4.2",
     "nexmo": "^2.6.0",
     "telesignsdk": "^2.2.1",
